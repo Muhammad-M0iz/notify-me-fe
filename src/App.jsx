@@ -1,51 +1,40 @@
-import { generateToken } from './firebase'
-import { Account, Client, ID } from 'appwrite';
-import config from './config/config';
-import RandomCredentials from './RandomCredentials';
+const signInAndCreateTarget = async () => {
+  try {
+    // Create guest user with email & password
+    const user = await account.create(ID.unique(), email, password);
+    console.log("User created:", user);
 
-const client = new Client();
-client.setProject(config.appwriteProjectId);
-client.setEndpoint(config.appwriteUrl);
+    // Log in the user
+    await account.createEmailPasswordSession(email, password);
+    console.log("User logged in");
 
-const account = new Account(client);
-const { email, password } = RandomCredentials();
+    // Get FCM token
+    const token = await generateToken();
+    console.log("FCM token:", token);
 
-function App() {
-
-  const signInAndCreateTarget = async () => {
+    // First, list and delete existing targets
     try {
-      // Create guest user with email & password
-      const user = await account.create(ID.unique(), email, password);
-      console.log("User created:", user);
-  
-      // Log in the user
-      await account.createEmailPasswordSession(email, password);
-      console.log("User logged in");
-  
-      // Get FCM token
-      const token = await generateToken();
-      console.log("FCM token:", token);
-  
-      // Register push target
-      const result=await account.createPushTarget(
-        ID.unique(), 
-        token,
+      const targets = await account.listTargets();
+      await Promise.all(
+        targets.targets.map(target => 
+          account.deleteTarget(target.$id)
+        )
       );
-      if(result)console.log("Push target registered", result); 
-  
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (e) {
+      console.log("No existing targets to delete");
     }
-  };
-  
 
-  return (
-    <>
-      <h1>Appwrite Notify</h1>
-      <button onClick={signInAndCreateTarget}>Notify</button>
-      <button onClick={()=>account.deleteSessions()}>Logout</button>
-    </>
-  )
-}
+    // Wait a small amount of time to ensure deletion is processed
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-export default App
+    // Register push target
+    const result = await account.createPushTarget(
+      ID.unique(), 
+      token,
+    );
+    if(result) console.log("Push target registered", result); 
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

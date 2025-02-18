@@ -24,6 +24,7 @@ function App() {
   
       // Get FCM token
       const token = await generateToken();
+      console.log("FCM token:", token);
   
       // Register push target
       const result=await account.createPushTarget(

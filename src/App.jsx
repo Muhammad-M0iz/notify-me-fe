@@ -1,5 +1,5 @@
 import { generateToken } from './firebase'
-import { Account, Client, ID } from 'appwrite';
+import { Account, Client } from 'appwrite';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
 
@@ -15,7 +15,8 @@ function App() {
   const signInAndCreateTarget = async () => {
     try {
       // Create guest user with email & password
-      const user = await account.create(ID.unique(), email, password);
+      const userId = crypto.randomUUID();  // Generate UUID
+      const user = await account.create(userId, email, password);
       console.log("User created:", user);
   
       // Log in the user
@@ -27,25 +28,22 @@ function App() {
       console.log("FCM token:", token);
   
       // Register push target
-      const result=await account.createPushTarget(
-        ID.unique(), 
-        token,
-      );
-      if(result)console.log("Push target registered", result); 
+      const targetId = crypto.randomUUID();  // Generate UUID for push target
+      const result = await account.createPushTarget(targetId, token);
+      if(result) console.log("Push target registered", result); 
   
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  
 
   return (
     <>
       <h1>Appwrite Notify</h1>
       <button onClick={signInAndCreateTarget}>Notify</button>
-      <button onClick={()=>account.deleteSessions()}>Logout</button>
+      <button onClick={() => account.deleteSessions()}>Logout</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

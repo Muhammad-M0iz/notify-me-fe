@@ -11,7 +11,7 @@ client.setEndpoint(config.appwriteUrl);
 const account = new Account(client);
 const { email, password } = RandomCredentials();
 function App() {
-  const {register,setRegister}=useState(false);
+  const [register,setRegister]=useState(false);
   const signInAndCreateTarget = async () => {
     try {
       // Create guest user with email & password

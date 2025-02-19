@@ -4,6 +4,7 @@ import config from './config/config';
 import RandomCredentials from './RandomCredentials';
 import { useState } from 'react';
 import {ToastContainer, toast} from 'react-toastify';
+import './button.css';
 
 const client = new Client();
 client.setProject(config.appwriteProjectId);

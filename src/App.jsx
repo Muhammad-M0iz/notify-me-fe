@@ -2,6 +2,7 @@ import { generateToken } from './firebase'
 import { Account, Client, ID } from 'appwrite';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
+import { useState } from 'react';
 
 const client = new Client();
 client.setProject(config.appwriteProjectId);
@@ -12,6 +13,7 @@ const { email, password } = RandomCredentials();
 
 function App() {
 
+  const {registered, setRegistered} = useState(false);
   const signInAndCreateTarget = async () => {
     try {
       // Create guest user with email & password
@@ -46,7 +48,10 @@ function App() {
         ID.unique(), 
         token,
       );
-      if(result)console.log("Push target registered", result); 
+      if(result){
+        console.log("Push target created");
+        setRegistered(true);
+      }; 
   
     } catch (error) {
       console.error("Error:", error);
@@ -59,6 +64,11 @@ function App() {
       <h1>Appwrite Notify</h1>
       <button onClick={signInAndCreateTarget}>Notify</button>
       <button onClick={()=>account.deleteSessions()}>Logout</button>
+      {registered && <p>
+        App registered Hogaye Ha
+        <br/>
+        Ab Meri Nazrein apky LMS pr hongi 👀
+        </p>}
     </>
   )
 }

@@ -2,6 +2,7 @@ import { generateToken } from './firebase'
 import { Account, Client, ID } from 'appwrite';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
+import { useState } from 'react';
 
 const client = new Client();
 client.setProject(config.appwriteProjectId);
@@ -9,7 +10,7 @@ client.setEndpoint(config.appwriteUrl);
 
 const account = new Account(client);
 const { email, password } = RandomCredentials();
-
+const {register,setRegister}=useState(false);
 function App() {
 
   const signInAndCreateTarget = async () => {
@@ -46,7 +47,9 @@ function App() {
         ID.unique(), 
         token,
       );
-      if(result)console.log("Push target registered", result); 
+      if(result){
+        setRegister(true);
+      }
   
     } catch (error) {
       console.error("Error:", error);
@@ -59,6 +62,7 @@ function App() {
       <h1>Appwrite Notify</h1>
       <button onClick={signInAndCreateTarget}>Notify</button>
       <button onClick={()=>account.deleteSessions()}>Logout</button>
+      {register && <h2>Registered for notifications</h2>}
     </>
   )
 }

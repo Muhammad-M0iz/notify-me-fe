@@ -78,7 +78,9 @@ function App() {
       <h1>Appwrite Notify</h1>
       <button
       disabled={clicked}
-       onClick={signInAndCreateTarget}>Notify</button>
+       onClick={signInAndCreateTarget}
+      className='btn'
+       >Notify</button>
       <button onClick={()=>account.deleteSessions()}>Logout</button>
       {register && <h2>Registered for notifications</h2>}
     </>

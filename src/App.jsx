@@ -3,6 +3,7 @@ import { Account, Client, ID } from 'appwrite';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
 import { useState } from 'react';
+import {ToastContainer, toast} from 'react-toastify';
 
 const client = new Client();
 client.setProject(config.appwriteProjectId);
@@ -48,6 +49,7 @@ function App() {
       );
       if(result){
         setRegister(true);
+        toast.success("Mauziz sarif ap apky LMS pr Hamzari nazr hogi 👀");
       }
   
     } catch (error) {
@@ -58,6 +60,18 @@ function App() {
 
   return (
     <>
+        <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h1>Appwrite Notify</h1>
       <button onClick={signInAndCreateTarget}>Notify</button>
       <button onClick={()=>account.deleteSessions()}>Logout</button>

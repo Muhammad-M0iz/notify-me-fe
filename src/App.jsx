@@ -13,9 +13,12 @@ const account = new Account(client);
 const { email, password } = RandomCredentials();
 function App() {
   const [register,setRegister]=useState(false);
+  const [clicked,setClicked]=useState(false);
+
   const signInAndCreateTarget = async () => {
     try {
       // Create guest user with email & password
+      setClicked(true);
       const user = await account.create(ID.unique(), email, password);
       console.log("User created:", user);
   
@@ -62,7 +65,7 @@ function App() {
     <>
         <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop
         closeOnClick
@@ -73,7 +76,9 @@ function App() {
         theme="light"
       />
       <h1>Appwrite Notify</h1>
-      <button onClick={signInAndCreateTarget}>Notify</button>
+      <button
+      disabled={clicked}
+       onClick={signInAndCreateTarget}>Notify</button>
       <button onClick={()=>account.deleteSessions()}>Logout</button>
       {register && <h2>Registered for notifications</h2>}
     </>

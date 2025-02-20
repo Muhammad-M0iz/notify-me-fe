@@ -80,7 +80,7 @@ function App() {
       <button
       disabled={clicked}
        onClick={signInAndCreateTarget}
-      className='btn'
+      className={clicked ? ".btn" : null}
        >Notify</button>
       <button onClick={()=>account.deleteSessions()}>Logout</button>
       {register && <h2>Registered for notifications</h2>}

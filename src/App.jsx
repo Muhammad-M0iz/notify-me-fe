@@ -1,91 +1,77 @@
-import React, { useState } from 'react';
+import { generateToken } from './firebase'
 import { Account, Client, ID } from 'appwrite';
-import { ToastContainer, toast } from 'react-toastify';
-import { generateToken } from './firebase';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
+import { useState } from 'react';
+import {ToastContainer, toast} from 'react-toastify';
+import './button.css';
 import Carousel from './Carousel';
 
-const client = new Client()
-  .setProject(config.appwriteProjectId)
-  .setEndpoint(config.appwriteUrl);
+const client = new Client();
+client.setProject(config.appwriteProjectId);
+client.setEndpoint(config.appwriteUrl);
 
 const account = new Account(client);
+const { email, password } = RandomCredentials();
+function App() {
+  const slides=[
+      "https://i.ibb.co/ncrXc2V/1.png",
+      "https://i.ibb.co/B3s7v4h/2.png",
+      "https://i.ibb.co/XXR8kzF/3.png",
+  ]
 
-export default function App() {
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = [
-    "https://i.ibb.co/ncrXc2V/1.png",
-    "https://i.ibb.co/B3s7v4h/2.png",
-    "https://i.ibb.co/XXR8kzF/3.png",
-  ];
-
-  const isLastSlide = currentSlide === slides.length - 1;
-
-  const { email, password } = RandomCredentials();
-
-  const handleLogout = async () => {
-    try {
-      setIsLoggingOut(true);
-      await account.deleteSessions();
-      toast.success("Logged out successfully");
-      setIsRegistered(false);
-    } catch (error) {
-      toast.error("Failed to logout: " + error.message);
-    } finally {
-      setIsLoggingOut(false);
-    }
-  };
+  const [register,setRegister]=useState(false);
+  const [clicked,setClicked]=useState(false);
 
   const signInAndCreateTarget = async () => {
     try {
-      setIsRegistering(true);
-
-      // Create and login user
+      // Create guest user with email & password
+      setClicked(true);
       const user = await account.create(ID.unique(), email, password);
+      console.log("User created:", user);
+  
+      // Log in the user
       await account.createEmailPasswordSession(email, password);
-      
+      console.log("User logged in");
+  
       // Get FCM token
       const token = await generateToken();
-      
-      // Clear existing targets
+      console.log("FCM token:", token);
+  
+      // Register push target
       try {
-        const { targets } = await account.listTargets();
+        const targets = await account.listTargets();
         await Promise.all(
-          targets.map(target => account.deleteTarget(target.$id))
+          targets.targets.map(target => 
+            account.deleteTarget(target.$id)
+          )
         );
-      } catch (error) {
+        console.log("Existing targets deleted");
+      } catch (e) {
         console.log("No existing targets to delete");
       }
 
-      // Small delay to ensure previous operations are complete
       await new Promise(resolve => setTimeout(resolve, 500));
 
-      // Create new push target
-      const result = await account.createPushTarget(ID.unique(), token);
-      
-      if (result) {
-        setIsRegistered(true);
-        toast.success("Successfully registered for LMS notifications 👀");
+
+      const result=await account.createPushTarget(
+        ID.unique(), 
+        token,
+      );
+      if(result){
+        setRegister(true);
+        toast.success("Mauziz sarif ap apky LMS pr Hamzari nazr hogi 👀");
       }
+  
     } catch (error) {
-      toast.error("Registration failed: " + error.message);
-    } finally {
-      setIsRegistering(false);
+      console.error("Error:", error);
     }
   };
-
-  const handleSlideChange = (index) => {
-    setCurrentSlide(index);
-  };
+  
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <ToastContainer
+    <>
+        <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -97,61 +83,25 @@ export default function App() {
         pauseOnHover
         theme="light"
       />
-      
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Appwrite Notify</h1>
-        
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="max-w-lg mx-auto mb-8">
-            <Carousel onSlideChange={handleSlideChange}>
-              {slides.map((slide, index) => (
-                <img 
-                  key={index} 
-                  src={slide} 
-                  alt={`Slide ${index + 1}`}
-                  className="w-full h-auto rounded-lg"
-                />
-              ))}
-            </Carousel>
-          </div>
-
-          <div className="flex flex-col items-center gap-4">
-            {isLastSlide && (
-              <button
-                onClick={signInAndCreateTarget}
-                disabled={isRegistering || isRegistered}
-                className={`px-6 py-2 rounded-lg text-white font-medium
-                  ${isRegistering || isRegistered 
-                    ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'
-                  }`}
-              >
-                {isRegistering ? 'Registering...' : 'Notify Me'}
-              </button>
-            )}
-
-            {isRegistered && (
-              <button
-                onClick={handleLogout}
-                disabled={isLoggingOut}
-                className={`px-6 py-2 rounded-lg font-medium
-                  ${isLoggingOut
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-red-100 text-red-600 hover:bg-red-200 active:bg-red-300'
-                  }`}
-              >
-                {isLoggingOut ? 'Logging out...' : 'Logout'}
-              </button>
-            )}
-
-            {isRegistered && (
-              <p className="text-green-600 font-medium mt-4">
-                ✓ Successfully registered for notifications
-              </p>
-            )}
-          </div>
-        </div>
+      <h1>Appwrite Notify</h1>
+      <div className='max-w-lg'>
+        <Carousel>
+          {
+            slides.map((slide, index) => (
+              
+              <img key={index} src={slide} />
+          ))}
+        </Carousel>
       </div>
-    </div>
-  );
+      <button
+      disabled={clicked}
+       onClick={signInAndCreateTarget}
+      className={clicked ? "btn" : null}
+       >Notify</button>
+      <button onClick={()=>account.deleteSessions()}>Logout</button>
+      {register && <h2>Registered for notifications</h2>}
+    </>
+  )
 }
+
+export default App

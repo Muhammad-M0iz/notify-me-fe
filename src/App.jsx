@@ -5,6 +5,7 @@ import RandomCredentials from './RandomCredentials';
 import { useState } from 'react';
 import {ToastContainer, toast} from 'react-toastify';
 import './button.css';
+import Carousel from './Carousel';
 
 const client = new Client();
 client.setProject(config.appwriteProjectId);
@@ -13,6 +14,13 @@ client.setEndpoint(config.appwriteUrl);
 const account = new Account(client);
 const { email, password } = RandomCredentials();
 function App() {
+  const slides={
+      https://i.ibb.co/ncrXc2V/1.png
+      https://i.ibb.co/B3s7v4h/2.png
+      https://i.ibb.co/XXR8kzF/3.png
+      https://i.ibb.co/yg7BSdM/4.png
+  }
+
   const [register,setRegister]=useState(false);
   const [clicked,setClicked]=useState(false);
 
@@ -77,6 +85,14 @@ function App() {
         theme="light"
       />
       <h1>Appwrite Notify</h1>
+      <div className='max-w-lg'>
+        <Carousel>
+          {
+            slides.map((slide, index) => (
+              <img src={slide} />
+          ))}
+        </Carousel>
+      </div>
       <button
       disabled={clicked}
        onClick={signInAndCreateTarget}

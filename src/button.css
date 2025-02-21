@@ -1,35 +1,15 @@
-/* Base notify button style */
-.notify-btn {
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  width: 180px;  /* Fixed width */
-  height: 60px;  /* Fixed height */
-  background: #1c1f2b;
-  text-align: center;
-  border-radius: 10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  cursor: pointer;
-  color: white;
-}
-
-/* Loading state styles */
 .btn {
   margin: 0 auto;
-  padding: 1rem 2rem;
-  width: 180px;
-  height: 60px;
+  padding: 1rem 2rem;  /* Changed from 2em to maintain consistent size */
+  width: 140px;        /* Fixed width */
+  height: 50px;        /* Added fixed height */
   background: #1c1f2b;
   text-align: center;
   border-radius: 10px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: not-allowed;
+  display: flex;       /* Added for text alignment */
+  align-items: center; /* Added for text alignment */
+  justify-content: center; /* Added for text alignment */
 }
 
 @property --angle {
@@ -41,13 +21,14 @@
 .btn::after, .btn::before {
   content: '';
   position: absolute;
-  height: calc(100% + 6px);
-  width: calc(100% + 6px);
+  height: 100%;
+  width: 100%;
   background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
   top: 50%;
   left: 50%;
   translate: -50% -50%;
   z-index: -1;
+  padding: 3px;
   border-radius: 10px;
   animation: 3s spin linear infinite;
 }

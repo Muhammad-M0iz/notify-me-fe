@@ -14,9 +14,12 @@ export default function Carousel({
     setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1))
   const next = () =>
     setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
-
+  
   useEffect(() => {
     slidenum(curr);
+  }, [curr]);
+
+  useEffect(() => {
     if (!autoSlide) return
     const slideInterval = setInterval(next, autoSlideInterval)
     return () => clearInterval(slideInterval)

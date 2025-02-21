@@ -6,6 +6,7 @@ export default function Carousel({
   children: slides,
   autoSlide = false,
   autoSlideInterval = 3000,
+  slidenum
 }) {
   const [curr, setCurr] = useState(0)
 
@@ -15,6 +16,7 @@ export default function Carousel({
     setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
 
   useEffect(() => {
+    slidenum(curr);
     if (!autoSlide) return
     const slideInterval = setInterval(next, autoSlideInterval)
     return () => clearInterval(slideInterval)

@@ -85,7 +85,7 @@ function App() {
       />
       <h1>Appwrite Notify</h1>
       <div className='max-w-lg'>
-        <Carousel>
+        <Carousel autoSlide autoSlideInterval={3000} slidenum={(curr)=>console.log(curr)}>
           {
             slides.map((slide, index) => (
               

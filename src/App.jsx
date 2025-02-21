@@ -71,8 +71,8 @@ function App() {
   
 
   return (
-    <>
-        <ToastContainer
+    <div className="min-h-screen bg-gray-900 text-white">
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -82,29 +82,51 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
-      <div className='flex justify-center items-center mx-auto mt-10 flex-col gap-3'>
-      <div className='max-w-lg flex justify-center items-center mx-auto mt-10'>
-        <Carousel slidenum={(curr)=>setCurr(curr)}>
-          {
-            slides.map((slide, index) => (
-              
-              <img key={index} src={slide} />
-          ))}
-        </Carousel>
-      </div>
+      <div className='container mx-auto px-4 py-8'>
+        <div className='max-w-lg mx-auto flex flex-col items-center gap-6'>
+          <div className='w-full rounded-lg overflow-hidden shadow-2xl'>
+            <Carousel slidenum={(curr)=>setCurr(curr)}>
+              {slides.map((slide, index) => (
+                <img 
+                  key={index} 
+                  src={slide} 
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-auto"
+                />
+              ))}
+            </Carousel>
+          </div>
 
-      {curr==2?<button
-      disabled={clicked}
-       onClick={signInAndCreateTarget}
-      className={clicked ? "btn" : "w-[100px]"}
-       >Notify</button>:null}
-      <button onClick={()=>account.deleteSessions()}>Logout</button>
-      {register && <h2>Registered for notifications</h2>}
+          <div className='flex flex-col items-center gap-4'>
+            {curr === 2 && (
+              <button
+                disabled={clicked}
+                onClick={signInAndCreateTarget}
+                className={`${clicked ? 'btn' : 'notify-btn'} fade-in`}
+              >
+                {clicked ? 'Processing...' : 'Notify'}
+              </button>
+            )}
+            
+            <button 
+              onClick={() => account.deleteSessions()}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors duration-300"
+            >
+              Logout
+            </button>
+            
+            {register && (
+              <h2 className="text-green-400 font-semibold fade-in">
+                Registered for notifications
+              </h2>
+            )}
+          </div>
+        </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
 export default App

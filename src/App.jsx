@@ -22,6 +22,7 @@ function App() {
 
   const [register,setRegister]=useState(false);
   const [clicked,setClicked]=useState(false);
+  const [curr,setCurr]=useState(0);
 
   const signInAndCreateTarget = async () => {
     try {
@@ -85,7 +86,7 @@ function App() {
       />
       <h1>Appwrite Notify</h1>
       <div className='max-w-lg'>
-        <Carousel autoSlide autoSlideInterval={3000} slidenum={(curr)=>console.log(curr)}>
+        <Carousel slidenum={(curr)=>setCurr(curr)}>
           {
             slides.map((slide, index) => (
               
@@ -93,11 +94,12 @@ function App() {
           ))}
         </Carousel>
       </div>
-      <button
+
+      {curr==2?<button
       disabled={clicked}
        onClick={signInAndCreateTarget}
       className={clicked ? "btn" : null}
-       >Notify</button>
+       >Notify</button>:null}
       <button onClick={()=>account.deleteSessions()}>Logout</button>
       {register && <h2>Registered for notifications</h2>}
     </>

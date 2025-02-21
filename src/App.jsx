@@ -15,9 +15,9 @@ const account = new Account(client);
 const { email, password } = RandomCredentials();
 function App() {
   const slides=[
-      "https://i.ibb.co/ncrXc2V/1.png",
-      "https://i.ibb.co/B3s7v4h/2.png",
-      "https://i.ibb.co/XXR8kzF/3.png",
+      "https://imgur.com/NM3rng1",
+      "https://imgur.com/2gLmmJo",
+      "https://imgur.com/facy5dg",
   ]
 
   const [register,setRegister]=useState(false);
@@ -84,7 +84,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <div className='max-w-lg'>
+      <div className='max-w-lg flex justify-center items-center mx-auto mt-10'>
         <Carousel slidenum={(curr)=>setCurr(curr)}>
           {
             slides.map((slide, index) => (

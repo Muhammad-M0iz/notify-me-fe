@@ -1,4 +1,5 @@
-.btn {
+/* Base notify button style */
+.notify-btn {
   margin: 0 auto;
   padding: 1rem 2rem;
   width: 180px;  /* Fixed width */
@@ -11,8 +12,24 @@
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  cursor: not-allowed;
+  cursor: pointer;
   color: white;
+}
+
+/* Loading state styles */
+.btn {
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  width: 180px;
+  height: 60px;
+  background: #1c1f2b;
+  text-align: center;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: not-allowed;
 }
 
 @property --angle {
@@ -24,8 +41,8 @@
 .btn::after, .btn::before {
   content: '';
   position: absolute;
-  height: calc(100% + 6px);  /* Increased to account for padding */
-  width: calc(100% + 6px);   /* Increased to account for padding */
+  height: calc(100% + 6px);
+  width: calc(100% + 6px);
   background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
   top: 50%;
   left: 50%;
@@ -47,25 +64,4 @@
   to {
     --angle: 360deg;
   }
-}
-
-/* Style for non-clicked state to match dimensions */
-button:not(.btn) {
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  width: 180px;
-  height: 60px;
-  border-radius: 10px;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #1c1f2b;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:not(.btn):hover {
-  background: #272b3b;
 }

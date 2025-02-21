@@ -127,7 +127,6 @@ function App() {
                 ${clicked ? 'btn' : 'bg-gradient-to-r from-gray-700 to-gray-600 text-white hover:from-gray-600 hover:to-gray-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95'}
               `}
             >
-              {clicked ? 'Processing...' : 'Notify Me'}
             </button>
           )}
         </div>

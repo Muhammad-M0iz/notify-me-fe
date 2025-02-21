@@ -1,43 +1,71 @@
+.btn {
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  width: 180px;  /* Fixed width */
+  height: 60px;  /* Fixed height */
+  background: #1c1f2b;
+  text-align: center;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: not-allowed;
+  color: white;
+}
 
-.btn{
-    margin: 0 auto;
-    padding: 2em;
-    width: 100px;
-    background: #1c1f2b;
-    text-align: center;
-    border-radius: 10px;
-    position: relative;
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn::after, .btn::before {
+  content: '';
+  position: absolute;
+  height: calc(100% + 6px);  /* Increased to account for padding */
+  width: calc(100% + 6px);   /* Increased to account for padding */
+  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  border-radius: 10px;
+  animation: 3s spin linear infinite;
+}
+
+.btn::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
   }
-  
-  @property --angle{
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
+  to {
+    --angle: 360deg;
   }
-  
-  .btn::after, .btn::before{
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    z-index: -1;
-    padding: 3px;
-    border-radius: 10px;
-    animation: 3s spin linear infinite;
-  }
-  .btn::before{
-    filter: blur(1.5rem);
-    opacity: 0.5;
-  }
-  @keyframes spin{
-    from{
-      --angle: 0deg;
-    }
-    to{
-      --angle: 360deg;
-    }
-  }
+}
+
+/* Style for non-clicked state to match dimensions */
+button:not(.btn) {
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  width: 180px;
+  height: 60px;
+  border-radius: 10px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c1f2b;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:not(.btn):hover {
+  background: #272b3b;
+}

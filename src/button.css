@@ -1,35 +1,20 @@
-.btn, .notify-btn {
+.btn{
   margin: 0 auto;
-  padding: 1em 2em;
-  width: 150px;
-  background: #1a1a1a;
-  color: #ffffff;
+  padding: 2em;
+  width: 100px;
+  background: #ffffff;
   text-align: center;
   border-radius: 10px;
   position: relative;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.notify-btn:hover {
-  transform: scale(1.05);
-  background: #2a2a2a;
-}
-
-.notify-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-@property --angle {
+@property --angle{
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-.btn::after, .btn::before {
+.btn::after, .btn::before{
   content: '';
   position: absolute;
   height: 100%;
@@ -43,22 +28,15 @@
   border-radius: 10px;
   animation: 3s spin linear infinite;
 }
-
-.btn::before {
+.btn::before{
   filter: blur(1.5rem);
   opacity: 0.5;
 }
-
-@keyframes spin {
-  from { --angle: 0deg; }
-  to { --angle: 360deg; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
 }

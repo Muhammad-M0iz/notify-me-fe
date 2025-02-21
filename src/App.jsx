@@ -117,18 +117,20 @@ function App() {
         <div className="h-20 flex items-center justify-center">
           {curr === 2 && (
             <button
-              disabled={clicked}
-              onClick={signInAndCreateTarget}
-              className={`
-                transform transition-all duration-500 ease-out
-                ${showButton ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-                px-8 py-4 text-lg rounded-full font-bold
-                border border-gray-600
-                ${clicked ? 'btn' : 'bg-gradient-to-r from-gray-700 to-gray-600 text-white hover:from-gray-600 hover:to-gray-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95'}
-              `}
-            >
-              {clicked ? 'Processing...' : 'Notify Me'}
-            </button>
+            disabled={clicked}
+            onClick={signInAndCreateTarget}
+            className={`
+              transform transition-all duration-500 ease-out
+              ${showButton ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
+              px-8 py-4 text-lg rounded-full font-bold
+              ${clicked 
+                ? 'bg-gray-700 border-2 border-transparent bg-gradient-to-r from-gray-600 to-gray-500' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-600 text-white hover:from-gray-600 hover:to-gray-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95'
+              }
+            `}
+          >
+            {clicked ? 'Processing...' : 'Notify Me'}
+          </button>
           )}
         </div>
 

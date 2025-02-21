@@ -84,7 +84,6 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <h1>Appwrite Notify</h1>
       <div className='max-w-lg'>
         <Carousel slidenum={(curr)=>setCurr(curr)}>
           {

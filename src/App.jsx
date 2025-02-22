@@ -97,9 +97,7 @@ function App() {
             <button
               disabled={clicked}
               onClick={signInAndCreateTarget}
-              className={`transform transition-all duration-300 ease-in-out ${
-                clicked ? ' btn hover:scale-105' : ''
-              }`}
+              className={clicked?'btn':null}
             >
               Notify
             </button>

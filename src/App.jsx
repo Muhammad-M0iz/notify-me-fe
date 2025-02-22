@@ -78,6 +78,9 @@ function App() {
         pauseOnHover
         theme="dark"
       />
+      <h1 className={`text-4xl font-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-bold tracking-wide heading-animate`}>
+        Notify Me
+      </h1>
       <div className="flex justify-center items-center mx-auto flex-col gap-3">
         <div className="max-w-lg flex justify-center items-center mx-auto mt-10">
           <Carousel slidenum={(curr)=>setCurr(curr)}>
@@ -95,9 +98,6 @@ function App() {
         <div className="flex flex-col items-center gap-4 mt-6">
           {curr === 2 && (
             <>
-              <h1 className={`text-4xl font-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-bold tracking-wide heading-animate`}>
-                Notify Me
-              </h1>
               <button
                 disabled={clicked}
                 onClick={signInAndCreateTarget}

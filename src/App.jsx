@@ -64,15 +64,6 @@ function App() {
     }
   };
 
-  const buttonClasses = `
-    px-6 py-2 rounded-lg bg-blue-600 text-white font-medium
-    transition-all duration-300 ease-in-out
-    hover:bg-blue-700 hover:scale-105
-    transform opacity-0 scale-95
-    ${curr === 2 ? 'animate-button-enter' : ''}
-    ${clicked ? 'btn relative before:absolute before:inset-0 before:rounded-lg before:p-[2px] before:bg-gradient-to-r before:from-pink-500 before:via-purple-500 before:to-blue-500 before:animate-border-gradient hover:scale-100' : ''}
-  `;
-
   return (
     <div className="min-h-screen bg-gray-900 text-white transition-colors duration-300">
       <ToastContainer
@@ -106,7 +97,7 @@ function App() {
             <button
               disabled={clicked}
               onClick={signInAndCreateTarget}
-              className={buttonClasses}
+              className={`button-animate ${clicked ? 'btn clicked-animate' : ''}`}
             >
               <span className="relative z-10">Notify</span>
             </button>

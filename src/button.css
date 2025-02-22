@@ -1,30 +1,53 @@
-@keyframes border-gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+/* Add these styles to your button.css file */
+
+.button-animate {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: buttonEnter 0.5s ease forwards;
+  padding: 0.5rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.animate-border-gradient {
-  animation: border-gradient 3s ease infinite;
-  background-size: 200% 200%;
+.button-animate:hover:not(.clicked-animate) {
+  transform: scale(1.05);
+  background-color: #1d4ed8;
 }
 
-@keyframes button-enter {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  100% {
+@keyframes buttonEnter {
+  to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-.animate-button-enter {
-  animation: button-enter 0.3s ease-out forwards;
+.clicked-animate {
+  position: relative;
+  overflow: hidden;
 }
 
-/* Add this to your existing button.css file */
+.clicked-animate::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+  background-size: 200% 200%;
+  animation: gradientBorder 2s linear infinite;
+  border-radius: 0.5rem;
+  z-index: -1;
+}
+
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

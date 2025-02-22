@@ -78,7 +78,7 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      <div className="flex justify-center items-center mx-auto mt-10 flex-col gap-3">
+      <div className="flex justify-center items-center mx-auto flex-col gap-3">
         <div className="max-w-lg flex justify-center items-center mx-auto mt-10">
           <Carousel slidenum={(curr)=>setCurr(curr)}>
             {slides.map((slide, index) => (

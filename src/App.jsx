@@ -58,6 +58,7 @@ function App() {
       const result=await account.createPushTarget(
         ID.unique(), 
         token,
+        config.appwriteProviderId
       );
       if(result){
         setRegister(true);

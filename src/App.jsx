@@ -13,6 +13,7 @@ client.setEndpoint(config.appwriteUrl);
 
 const account = new Account(client);
 const { email, password } = RandomCredentials();
+
 function App() {
   const slides=[
       "https://i.imgur.com/DCGsnDk.jpeg",
@@ -26,21 +27,17 @@ function App() {
 
   const signInAndCreateTarget = async () => {
     try {
-      // Create guest user with email & password
       account.deleteSessions();
       setClicked(true);
       const user = await account.create(ID.unique(), email, password);
       console.log("User created:", user);
   
-      // Log in the user
       await account.createEmailPasswordSession(email, password);
       console.log("User logged in");
   
-      // Get FCM token
       const token = await generateToken();
       console.log("FCM token:", token);
   
-      // Register push target
       try {
         const targets = await account.listTargets();
         await Promise.all(
@@ -53,7 +50,7 @@ function App() {
         console.log("No existing targets to delete");
       }
 
-      const result=await account.createPushTarget(
+      const result = await account.createPushTarget(
         crypto.randomUUID(), 
         token,
         config.appwriteProviderId
@@ -62,16 +59,14 @@ function App() {
         setRegister(true);
         toast.success("Mauziz sarif ap apky LMS pr Hamzari nazr hogi 👀");
       }
-  
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  
 
   return (
-    <>
-        <ToastContainer
+    <div className="min-h-screen bg-gray-900 text-white transition-colors duration-300">
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -81,28 +76,48 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
-      <div className='flex justify-center items-center mx-auto mt-10 flex-col gap-3'>
-      <div className='max-w-lg flex justify-center items-center mx-auto mt-10'>
-        <Carousel slidenum={(curr)=>setCurr(curr)}>
-          {
-            slides.map((slide, index) => (
-              
-              <img key={index} src={slide} />
-          ))}
-        </Carousel>
-      </div>
+      <div className="flex justify-center items-center mx-auto mt-10 flex-col gap-3">
+        <div className="max-w-lg flex justify-center items-center mx-auto mt-10">
+          <Carousel slidenum={(curr)=>setCurr(curr)}>
+            {slides.map((slide, index) => (
+              <img 
+                key={index} 
+                src={slide} 
+                className="rounded-lg shadow-xl"
+                alt={`Slide ${index + 1}`}
+              />
+            ))}
+          </Carousel>
+        </div>
 
-      {curr==2?<button
-      disabled={clicked}
-       onClick={signInAndCreateTarget}
-      className={clicked ? "btn" : "w-[100px]"}
-       >Notify</button>:null}
-      {register && <h2>Registered for notifications</h2>}
+        <div className="relative">
+          {curr === 2 && (
+            <button
+              disabled={clicked}
+              onClick={signInAndCreateTarget}
+              className={`btn transform transition-all duration-300 ease-in-out ${
+                !clicked ? 'hover:scale-105' : ''
+              }`}
+            >
+              Notify
+            </button>
+          )}
+        </div>
+        
+        <div className={`transform transition-all duration-300 ease-in-out ${
+          register ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}>
+          {register && (
+            <h2 className="text-lg font-semibold text-green-400">
+              Registered for notifications
+            </h2>
+          )}
+        </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
 export default App

@@ -1,42 +1,30 @@
-.btn{
-  margin: 0 auto;
-  padding: 2em;
-  width: 100px;
-  background: #ffffff;
-  text-align: center;
-  border-radius: 10px;
-  position: relative;
-}
-
-@property --angle{
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.btn::after, .btn::before{
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  z-index: -1;
-  padding: 3px;
-  border-radius: 10px;
-  animation: 3s spin linear infinite;
-}
-.btn::before{
-  filter: blur(1.5rem);
-  opacity: 0.5;
-}
-@keyframes spin{
-  from{
-    --angle: 0deg;
+@keyframes border-gradient {
+  0%, 100% {
+    background-position: 0% 50%;
   }
-  to{
-    --angle: 360deg;
+  50% {
+    background-position: 100% 50%;
   }
 }
+
+.animate-border-gradient {
+  animation: border-gradient 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes button-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-button-enter {
+  animation: button-enter 0.3s ease-out forwards;
+}
+
+/* Add this to your existing button.css file */

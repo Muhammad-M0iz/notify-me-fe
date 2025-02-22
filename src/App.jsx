@@ -98,7 +98,7 @@ function App() {
               disabled={clicked}
               onClick={signInAndCreateTarget}
               className={`transform transition-all duration-300 ease-in-out ${
-                !clicked ? 'hover:scale-105' : ''
+                clicked ? ' btn hover:scale-105' : ''
               }`}
             >
               Notify

@@ -27,6 +27,7 @@ function App() {
   const signInAndCreateTarget = async () => {
     try {
       // Create guest user with email & password
+      account.deleteSessions();
       setClicked(true);
       const user = await account.create(ID.unique(), email, password);
       console.log("User created:", user);
@@ -101,7 +102,6 @@ function App() {
        onClick={signInAndCreateTarget}
       className={clicked ? "btn" : "w-[100px]"}
        >Notify</button>:null}
-      <button onClick={()=>account.deleteSessions()}>Logout</button>
       {register && <h2>Registered for notifications</h2>}
       </div>
     </>

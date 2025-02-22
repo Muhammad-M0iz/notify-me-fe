@@ -78,7 +78,7 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      <div className="w-full flex justify-center mt-8">
+      <div className="w-full flex justify-center">
         <h1 className="text-4xl font-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-bold tracking-wide heading-animate">
           Notify Me
         </h1>

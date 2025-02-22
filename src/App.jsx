@@ -49,7 +49,7 @@ function App() {
         );
         console.log("Existing targets deleted");
       } catch (e) {
-        console.log("No existing targets to delete");
+        console.log("No existing targets to deleted");
       }
 
       await new Promise(resolve => setTimeout(resolve, 500));

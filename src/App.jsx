@@ -53,9 +53,6 @@ function App() {
         console.log("No existing targets to delete");
       }
 
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-
       const result=await account.createPushTarget(
         crypto.randomUUID(), 
         token,

@@ -1,5 +1,12 @@
-/* Add these styles to your button.css file */
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* Add the font-family utility class */
+.font-heading {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Existing button styles */
 .button-animate {
   opacity: 0;
   transform: scale(0.95);
@@ -10,6 +17,7 @@
   border-radius: 0.5rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .button-animate:hover:not(.clicked-animate) {
@@ -49,5 +57,20 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* New heading animation */
+.heading-animate {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: headingEnter 0.5s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes headingEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

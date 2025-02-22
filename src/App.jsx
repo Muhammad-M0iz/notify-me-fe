@@ -92,15 +92,20 @@ function App() {
           </Carousel>
         </div>
 
-        <div className="relative">
+        <div className="flex flex-col items-center gap-4 mt-6">
           {curr === 2 && (
-            <button
-              disabled={clicked}
-              onClick={signInAndCreateTarget}
-              className={`button-animate ${clicked ? 'btn clicked-animate' : ''}`}
-            >
-              <span className="relative z-10">Notify</span>
-            </button>
+            <>
+              <h1 className={`text-4xl font-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-bold tracking-wide heading-animate`}>
+                Notify Me
+              </h1>
+              <button
+                disabled={clicked}
+                onClick={signInAndCreateTarget}
+                className={`button-animate ${clicked ? 'btn clicked-animate' : ''}`}
+              >
+                <span className="relative z-10">Notify</span>
+              </button>
+            </>
           )}
         </div>
         

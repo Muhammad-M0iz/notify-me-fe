@@ -51,7 +51,7 @@ function App() {
       }
 
       const result = await account.createPushTarget(
-        crypto.randomUUID(), 
+        ID.unique(), 
         token,
         config.appwriteProviderId
       );

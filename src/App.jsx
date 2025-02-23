@@ -1,5 +1,5 @@
 import { generateToken } from './firebase'
-import { Account, Client, ID } from 'appwrite';
+import { Account, Client, ID, Messaging } from 'appwrite';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
 import { useState } from 'react';
@@ -12,6 +12,8 @@ client.setProject(config.appwriteProjectId);
 client.setEndpoint(config.appwriteUrl);
 
 const account = new Account(client);
+const messaging =new Messaging(client);
+
 const { email, password } = RandomCredentials();
 
 function App() {
@@ -50,15 +52,26 @@ function App() {
         console.log("No existing targets to delete");
       }
 
+      const targetId=crypto.randomUUID();
+
       const result = await account.createPushTarget(
-        crypto.randomUUID(),
+        targetId,
         token,
         config.appwriteProviderId,
       );
-      if(result){
-        setRegister(true);
-        toast.success("Mauziz sarif ab apky LMS pr Hamari nazr hogi 👀");
-      }
+
+      if(result)
+        console.log("Target created:", result);
+      
+      await messaging.createSubscriber(
+        '67b9840b000888be3754',  // Topic ID
+        result.$id,             // Subscriber ID (from Appwrite Console)
+        targetId,               // Target ID
+      )
+
+      setRegister(true);
+      toast.success("Mauziz Sarif ab apky LMS pr hamari nazr hogi👀");
+     
     } catch (error) {
       toast.error("An error occurred. Please try again later.");
       console.error("Error:", error);

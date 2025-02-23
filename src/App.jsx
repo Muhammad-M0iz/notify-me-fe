@@ -53,7 +53,7 @@ function App() {
       const result = await account.createPushTarget(
         crypto.randomUUID(),
         token,
-        config.appwriteProviderId
+        config.appwriteProviderId,
       );
       if(result){
         setRegister(true);

@@ -57,7 +57,7 @@ function App() {
       );
       if(result){
         setRegister(true);
-        toast.success("Mauziz sarif ap apky LMS pr Hamzari nazr hogi 👀");
+        toast.success("Mauziz sarif ab apky LMS pr Hamari nazr hogi 👀");
       }
     } catch (error) {
       console.error("Error:", error);

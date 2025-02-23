@@ -49,9 +49,12 @@ function App() {
       } catch (e) {
         console.log("No existing targets to delete");
       }
+      const targetId=crypto.randomUUID();
+
+      console.log("targetid:",targetId);
 
       const result = await account.createPushTarget(
-        crypto.randomUUID(), 
+        targetId,
         token,
         config.appwriteProviderId
       );

@@ -94,7 +94,7 @@ function App() {
       />
       <div className="w-full flex justify-center">
         <h1 className="text-4xl font-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-bold tracking-wide heading-animate mt-2">
-          Notify Me
+          Notify Moiz
         </h1>
       </div>
       <div className="flex justify-center items-center mx-auto flex-col gap-3">

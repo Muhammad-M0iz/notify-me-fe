@@ -5,13 +5,19 @@
   padding: clamp(1rem, 3vw, 2rem);
   max-width: min(1200px, 90vw);
   margin: 0 auto;
-  background-color: var(--background-light); /* Added */
+  /* background-color: var(--background-light); */ /* Original background */
+  background-color: rgba(248, 250, 252, 0.8); /* Light mode with transparency */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
   transition: background-color 0.3s ease, color 0.3s ease; /* Added */
+  border-radius: 1rem; /* Optional: for softer edges with blur */
 }
 
 body.dark-mode .about-section {
-  background-color: var(--component-background-dark); /* Dark mode style */
+  /* background-color: var(--component-background-dark); */ /* Original dark mode style */
+  background-color: rgba(26, 32, 44, 0.8); /* Dark mode with transparency */
   color: var(--text-primary-dark);
+  /* backdrop-filter is inherited or can be re-specified if needed */
 }
 
 .features-text h2 {

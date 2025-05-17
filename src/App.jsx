@@ -104,9 +104,7 @@ function App() {
       <Gradient position="left">
         <About />
       </Gradient>
-      <Gradient position="left"> {/* Changed from right to left */}
         <Notification />
-      </Gradient>
       {/* Pass the notification handler to CTA */}
       <CTA onNotifyClick={handleNotificationRegistration} /> 
       <Footer />

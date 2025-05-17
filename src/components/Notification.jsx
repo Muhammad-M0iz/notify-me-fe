@@ -8,16 +8,16 @@ const Notification = () => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
         } else {
-          // Optionally remove the class if you want the animation to replay if it scrolls out and back in
           entry.target.classList.remove('is-visible');
         }
       });
-    }, { threshold: 0.1 }); // Adjust threshold as needed
+    }, { threshold: 0.1 });
 
-    const images = document.querySelectorAll('.notification-img img');
-    images.forEach(img => observer.observe(img));
+    // Updated selector to target the device containers for animation
+    const animatedElements = document.querySelectorAll('.notification-img .animate-on-scroll');
+    animatedElements.forEach(el => observer.observe(el));
 
-    return () => images.forEach(img => observer.unobserve(img));
+    return () => animatedElements.forEach(el => observer.unobserve(el));
   }, []);
   return (
     <div className="notification-ui">
@@ -55,7 +55,20 @@ const Notification = () => {
       </div>
 
       <div className="notification-img">
-        <img src="img/img-3.png" alt="Notification" className="animate-on-scroll" />
+        {/* New structure for iPhone and Monitor */}
+        <div className="device-pair">
+          <div className="iphone-device animate-on-scroll">
+            <div className="iphone-notch"></div>
+            <img src="img/img-3.png" alt="App preview on iPhone" />
+          </div>
+          <div className="monitor-device animate-on-scroll">
+            <div className="monitor-stand-top"></div>
+            <div className="monitor-screen">
+              <img src="img/img-3.png" alt="App preview on Monitor" />
+            </div>
+            <div className="monitor-stand-bottom"></div>
+          </div>
+        </div>
       </div>
     </div>
   );

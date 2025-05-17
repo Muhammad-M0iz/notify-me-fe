@@ -1,0 +1,76 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Add the font-family utility class */
+.font-heading {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Existing button styles */
+.button-animate {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: buttonEnter 0.5s ease forwards;
+  padding: 0.5rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-animate:hover:not(.clicked-animate) {
+  transform: scale(1.05);
+  background-color: #1d4ed8;
+}
+
+@keyframes buttonEnter {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.clicked-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.clicked-animate::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+  background-size: 200% 200%;
+  animation: gradientBorder 2s linear infinite;
+  border-radius: 0.5rem;
+  z-index: -1;
+}
+
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* New heading animation */
+.heading-animate {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: headingEnter 0.5s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes headingEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

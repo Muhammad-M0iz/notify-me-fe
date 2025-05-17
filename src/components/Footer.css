@@ -1,0 +1,148 @@
+.footer-content {
+  background-color: #e8e8e8; /* Light mode specific or use var(--background-light) if it matches */
+  text-align: center;
+  margin-top: 1rem;
+  padding: 2rem 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Add transition */
+}
+
+body.dark-mode .footer-content {
+  background-color: var(--component-background-dark);
+  color: var(--text-primary-dark);
+}
+
+.footer-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.footer-links a {
+  color: var(--text-primary); /* Use CSS variable */
+  text-decoration: none;
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.5rem;
+  transition: text-decoration 0.3s ease;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .footer-links a {
+  color: var(--text-primary-dark);
+}
+
+body.dark-mode .footer-links a:hover {
+  text-decoration: underline;
+  color: var(--secondary-color); /* Or a specific dark mode hover color */
+}
+
+/* -------------------------------
+   ✅ Responsive Adjustments
+-------------------------------- */
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .footer-content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .footer-links {
+    gap: 1rem;
+  }
+
+  .footer-links a {
+    font-size: 0.875rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 1.5rem 1rem; /* Adjusted padding */
+  }
+
+  .footer-text {
+    font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
+  }
+
+  .footer-links {
+    gap: 0.5rem; /* Adjust gap */
+  }
+
+  .footer-links a {
+    font-size: clamp(0.75rem, 2.5vw, 0.8125rem); /* Responsive font size */
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 600px) {
+  .footer-content {
+    padding: 1.25rem 0.75rem; /* Adjusted padding */
+    margin-top: 0.5rem; /* Adjust margin */
+  }
+
+  .footer-links {
+    gap: 0.25rem; /* Further adjust gap */
+    flex-direction: column; /* Stack links for smaller screens */
+    align-items: center;
+  }
+
+  .footer-links a {
+    font-size: clamp(0.8rem, 3vw, 0.875rem); /* Responsive font size */
+    padding: 0.35rem 0.75rem; /* Adjust padding for stacked links */
+    width: clamp(150px, 60%, 200px); /* Control width of stacked links */
+    margin: 0.2rem 0; /* Adjust margin for stacked links */
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .footer-content {
+    padding: 1rem 0.5rem; /* Further reduced padding */
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem; /* Adjusted margin */
+  }
+
+  .footer-links a {
+    font-size: clamp(0.75rem, 3.5vw, 0.875rem); /* Responsive font size */
+    margin: 0.25rem 0;
+    padding: 0.5rem 1rem;
+    width: 80%;
+    border-radius: 0.25rem;
+    background-color: rgba(0, 0, 0, 0.05); /* Keep or adjust as per design */
+  }
+
+  .footer-text {
+    font-size: clamp(0.7rem, 2.5vw, 0.85rem); /* Responsive font size */
+    padding: 0 0.5rem; /* Adjust padding */
+  }
+
+  body.dark-mode .footer-links a {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter background for links in dark mode on mobile */
+    color: var(--text-primary-dark);
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 320px) {
+  .footer-content {
+    padding: 0.75rem 0.25rem; /* Minimized padding */
+  }
+
+  .footer-links a {
+    width: 90%;
+    font-size: clamp(0.7rem, 3vw, 0.8125rem); /* Responsive font size */
+    padding: 0.4rem 0.8rem;
+  }
+
+  .footer-text {
+    font-size: clamp(0.65rem, 2.2vw, 0.75rem);
+  }
+}

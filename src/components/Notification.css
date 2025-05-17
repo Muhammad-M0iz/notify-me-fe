@@ -1,0 +1,312 @@
+.notification-ui {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--background-light); /* Added */
+  transition: background-color 0.3s ease; /* Added */
+}
+
+body.dark-mode .notification-ui {
+  background-color: var(--component-background-dark); /* Dark mode style */
+}
+
+.notification-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-color); /* Use CSS variable */
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.15rem;
+  color: var(--text-secondary); /* Use CSS variable */
+  line-height: 1.6;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+}
+
+.step:hover {
+  background-color: #f0f4ff; /* Consider a dark mode hover color */
+}
+
+body.dark-mode .step:hover {
+  background-color: #3a4a63; /* Example dark mode hover */
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--primary-color); /* Use CSS variable */
+  color: white; /* This might need to be a variable if primary-color becomes light */
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color); /* Use CSS variable */
+}
+
+.step-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary); /* Use CSS variable */
+}
+
+.notification-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.notification-img img {
+  width: 60%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+  background-color: var(--text-secondary); /* Use CSS variable, consider if this is the right one */
+  display: block;
+  margin: 0 auto;
+}
+
+body.dark-mode .notification-img img {
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.08); /* Lighter shadow for dark mode */
+  background-color: var(--component-background-dark); /* Adjust background if needed */
+}
+
+.notification-img img:hover {
+  transform: translateY(-5px);
+}
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .notification-ui {
+    gap: 3rem;
+  }
+
+  .header h1 {
+    font-size: 3.2rem;
+  }
+}
+
+/* Desktop */
+@media (max-width: 1200px) {
+  .notification-ui {
+    gap: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+  }
+
+  .notification-img img {
+    width: 60%;
+  }
+}
+
+/* Small Desktop & Large Tablet */
+@media (max-width: 1024px) {
+  .notification-ui {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1rem; /* Adjusted padding */
+    text-align: center;
+    gap: 1.5rem; /* Adjusted gap */
+  }
+
+  .notification-text {
+    align-items: center;
+    order: 1; /* Text first on tablet */
+  }
+
+  .notification-img {
+    order: 2; /* Image second on tablet */
+    max-width: 320px; /* Limit image width */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .header h1 {
+    font-size: clamp(1.8rem, 6vw, 2.2rem); /* Responsive font size */
+  }
+
+  .header p {
+    font-size: clamp(0.9rem, 4vw, 1.05rem); /* Responsive font size */
+  }
+
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem; /* Add gap between steps */
+  }
+
+  .step {
+    max-width: 90%; /* Adjust max width */
+    text-align: left;
+    padding: 0.5rem; /* Adjust padding */
+  }
+
+  .notification-img img {
+    width: 100%; /* Image takes full width of its container */
+    max-width: 280px; /* Adjust max width for this breakpoint */
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .notification-ui {
+    padding: 1.25rem 0.75rem; /* Adjusted padding */
+    gap: 1.25rem; /* Adjusted gap */
+  }
+
+  .header h1 {
+    font-size: clamp(1.6rem, 5.5vw, 2rem); /* Responsive font size */
+  }
+
+  .header p {
+    font-size: clamp(0.85rem, 3.5vw, 1rem); /* Responsive font size */
+  }
+
+  .step {
+    max-width: 95%; /* Adjust max width */
+    flex-direction: column; /* Stack step number and content */
+    align-items: center; /* Center items in stacked step */
+    text-align: center; /* Center text in step */
+  }
+
+  .step-number {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 0.5rem; /* Add bottom margin */
+  }
+
+  .step-content h3 {
+    font-size: clamp(0.9rem, 4vw, 1rem);
+  }
+
+  .step-content p {
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+  }
+
+  .notification-img {
+    max-width: 280px; /* Adjust image max width */
+  }
+  .notification-img img {
+    max-width: 240px; /* Adjust image max width */
+    border-radius: 0.75rem; /* Adjust border radius */
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .notification-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items */
+    gap: 1.5rem;
+    padding: 1rem 0.5rem;
+    margin-bottom: 1.5rem; /* Adjusted margin */
+  }
+  .notification-img {
+    display: block !important; /* Ensure image is shown, override previous hide */
+    order: 1; /* Image first on mobile */
+    max-width: 250px; /* Adjust image max width */
+    margin-bottom: 1rem;
+  }
+  .notification-img img {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    display: block;
+  }
+  .notification-text {
+    align-items: center;
+    text-align: center;
+    order: 2; /* Text second on mobile */
+    width: 100%; /* Ensure text takes full width */
+  }
+
+  .header h1 {
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+  }
+
+  .header p {
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
+  }
+
+  .steps-list {
+    gap: 0.75rem;
+  }
+
+  .step {
+    padding: 0.5rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+  }
+
+  .header p {
+    font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+  }
+
+  .step-content h3 {
+    font-size: clamp(0.85rem, 3.5vw, 0.9rem);
+  }
+
+  .step-content p {
+    font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+  }
+
+  .step-number {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .notification-img {
+    max-width: 200px;
+  }
+  .notification-img img {
+    max-width: 180px;
+    border-radius: 0.5rem;
+  }
+}

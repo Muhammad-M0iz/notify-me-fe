@@ -1,0 +1,298 @@
+.gradient-wrapper {
+  position: relative;
+  height: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.color-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Left position styles (default) */
+.left-position.circle-yellow {
+  background-color: #f9ca24;
+  width: 500px;
+  height: 500px;
+  left: -250px !important;
+  right: auto !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-position.circle-red {
+  background-color: #ff6d00;
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  right: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-position.circle-orange {
+  background-color: #ff9800;
+  width: 300px;
+  height: 300px;
+  left: -150px;
+  right: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Right position styles */
+.right-position.circle-yellow {
+  background-color: #f9ca24;
+  width: 500px;
+  height: 500px;
+  right: -250px !important;
+  left: auto !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-position.circle-red {
+  background-color: #ff6d00;
+  width: 400px;
+  height: 400px;
+  right: -200px;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-position.circle-orange {
+  background-color: #ff9800;
+  width: 300px;
+  height: 300px;
+  right: -150px;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Animation */
+@keyframes pulse {
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.05);
+  }
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+.color-circle.animate {
+  animation: pulse 4s infinite ease-in-out;
+}
+
+.circle-yellow.animate {
+  animation-delay: 0s;
+}
+.circle-red.animate {
+  animation-delay: 0.5s;
+}
+.circle-orange.animate {
+  animation-delay: 1s;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ======= Responsive Media Queries ======= */
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .gradient-wrapper {
+    height: 700px;
+  }
+
+  .left-position.circle-yellow,
+  .right-position.circle-yellow {
+    width: 600px;
+    height: 600px;
+    left: -300px;
+    right: -300px;
+  }
+
+  .left-position.circle-red,
+  .right-position.circle-red {
+    width: 480px;
+    height: 480px;
+    left: -240px;
+    right: -240px;
+  }
+
+  .left-position.circle-orange,
+  .right-position.circle-orange {
+    width: 360px;
+    height: 360px;
+    left: -180px;
+    right: -180px;
+  }
+}
+
+/* Desktop */
+@media (max-width: 1200px) {
+  .gradient-wrapper {
+    height: 550px;
+  }
+
+  .left-position.circle-yellow,
+  .right-position.circle-yellow {
+    width: 450px;
+    height: 450px;
+    left: -225px;
+    right: -225px;
+  }
+
+  .left-position.circle-red,
+  .right-position.circle-red {
+    width: 360px;
+    height: 360px;
+    left: -180px;
+    right: -180px;
+  }
+
+  .left-position.circle-orange,
+  .right-position.circle-orange {
+    width: 270px;
+    height: 270px;
+    left: -135px;
+    right: -135px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .gradient-wrapper {
+    height: 500px;
+  }
+
+  .left-position.circle-yellow,
+  .right-position.circle-yellow {
+    width: 350px;
+    height: 350px;
+    left: -175px;
+    right: -175px;
+  }
+
+  .left-position.circle-red,
+  .right-position.circle-red {
+    width: 280px;
+    height: 280px;
+    left: -140px;
+    right: -140px;
+  }
+
+  .left-position.circle-orange,
+  .right-position.circle-orange {
+    width: 200px;
+    height: 200px;
+    left: -100px;
+    right: -100px;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+}
+
+/* Large Phones */
+@media (max-width: 768px) {
+  .gradient-wrapper {
+    height: 450px;
+  }
+
+  .left-position.circle-yellow,
+  .right-position.circle-yellow {
+    width: 60px !important;
+    height: 60px !important;
+    left: -50px !important;
+    right: -50px !important;
+    top: 10% !important;
+  }
+  .left-position.circle-red,
+  .right-position.circle-red {
+    width: 40px !important;
+    height: 40px !important;
+    left: -30px !important;
+    right: -30px !important;
+    top: 60% !important;
+  }
+  .left-position.circle-orange,
+  .right-position.circle-orange {
+    width: 30px !important;
+    height: 30px !important;
+    left: -20px !important;
+    right: -20px !important;
+    top: 80% !important;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .gradient-wrapper {
+    height: 220px;
+    min-height: 0;
+    padding: 0;
+  }
+  .left-position.circle-yellow {
+    left: -90px !important;
+    right: auto !important;
+  }
+  .left-position.circle-red {
+    left: -70px !important;
+    right: auto !important;
+  }
+  .left-position.circle-orange {
+    left: -50px !important;
+    right: auto !important;
+  }
+  .right-position.circle-yellow {
+    right: -90px !important;
+    left: auto !important;
+  }
+  .right-position.circle-red {
+    right: -70px !important;
+    left: auto !important;
+  }
+  .right-position.circle-orange {
+    right: -50px !important;
+    left: auto !important;
+  }
+  .content {
+    padding: 0.5rem;
+  }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+  .gradient-wrapper {
+    height: 350px;
+  }
+
+  .left-position.circle-yellow,
+  .right-position.circle-yellow,
+  .left-position.circle-red,
+  .right-position.circle-red,
+  .left-position.circle-orange,
+  .right-position.circle-orange {
+    display: none !important;
+  }
+}

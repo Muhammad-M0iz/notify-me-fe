@@ -1,36 +1,40 @@
-import { generateToken } from './firebase'
+import React from "react";
+import CTA from "./components/CTA"; // Corrected path
+import Hero from "./components/Hero"; // Corrected path
+import About from "./components/About"; // Corrected path
+import Gradient from "./components/Gradient"; // Corrected path
+import Notification from "./components/Notification"; // Corrected path
+import Footer from "./components/Footer"; // Corrected path
+import DarkModeToggle from "./components/DarkModeToggle"; // Import the toggle
+import "./index.css";
+
+// Import Appwrite and other necessary modules from the original App.jsx
 import { Account, Client, ID, Messaging } from 'appwrite';
 import config from './config/config';
 import RandomCredentials from './RandomCredentials';
-import { useState } from 'react';
-import {ToastContainer, toast} from 'react-toastify';
-import './button.css';
-import Carousel from './Carousel';
+import { toast, ToastContainer } from 'react-toastify'; // Keep ToastContainer here
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
+import { generateToken } from './firebase';
 
+
+// Initialize Appwrite client and services (from original App.jsx)
 const client = new Client();
 client.setProject(config.appwriteProjectId);
 client.setEndpoint(config.appwriteUrl);
 
 const account = new Account(client);
-const messaging =new Messaging(client);
+const messaging = new Messaging(client);
 
 const { email, password } = RandomCredentials();
 
+
 function App() {
-  const slides=[
-      "https://i.imgur.com/DCGsnDk.jpeg",
-      "https://i.imgur.com/eXhIrQT.jpeg",
-      "https://i.imgur.com/gEegykk.jpeg",
-  ]
-
-  const [register,setRegister]=useState(false);
-  const [clicked,setClicked]=useState(false);
-  const [curr,setCurr]=useState(0);
-
-  const signInAndCreateTarget = async () => {
+  // Notification logic (moved from original App.jsx, to be passed to CTA)
+  const handleNotificationRegistration = async (setLoading, setRegistered) => {
     try {
-      account.deleteSessions();
-      setClicked(true);
+      setLoading(true); // Indicate loading started in CTA
+      account.deleteSessions(); // It's good practice to ensure no prior sessions interfere
+      
       const user = await account.create(ID.unique(), email, password);
       console.log("User created:", user);
   
@@ -49,10 +53,10 @@ function App() {
         );
         console.log("Existing targets deleted");
       } catch (e) {
-        console.log("No existing targets to delete",e);
+        console.log("No existing targets to delete or error during deletion:", e);
       }
 
-      const targetId=crypto.randomUUID();
+      const targetId = crypto.randomUUID();
 
       const result = await account.createPushTarget(
         targetId,
@@ -60,26 +64,29 @@ function App() {
         config.appwriteProviderId,
       );
 
-      if(result)
+      if(result) {
         console.log("Target created:", result);
-      
-      await messaging.createSubscriber(
-        '67b9840b000888be3754',  // Topic ID
-        result.$id,             // Subscriber ID (from Appwrite Console)
-        targetId,               // Target ID
-      )
-
-      setRegister(true);
-      toast.success("Mauziz Sarif ab apky LMS pr hamari nazr hogi👀");
+        await messaging.createSubscriber(
+          '67b9840b000888be3754',  // Topic ID
+          result.$id,             // Subscriber ID (target ID from Appwrite)
+          targetId,               // Target ID (custom generated)
+        );
+        toast.success("Mauziz Sarif ab apky LMS pr hamari nazr hogi👀");
+        if(setRegistered) setRegistered(true); // Update registration status in CTA if callback is provided
+      } else {
+        toast.error("Failed to create push target.");
+      }
      
     } catch (error) {
       toast.error("An error occurred. Please try again later.");
       console.error("Error:", error);
+    } finally {
+      if(setLoading) setLoading(false); // Indicate loading finished in CTA
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white transition-colors duration-300">
+    <>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -92,51 +99,19 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      <div className="w-full flex justify-center">
-        <h1 className="text-4xl font-heading text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-bold tracking-wide heading-animate mt-2">
-          Notify Moiz
-        </h1>
-      </div>
-      <div className="flex justify-center items-center mx-auto flex-col gap-3">
-        <div className="max-w-lg flex justify-center items-center mx-auto mt-10">
-          <Carousel slidenum={(curr)=>setCurr(curr)}>
-            {slides.map((slide, index) => (
-              <img 
-                key={index} 
-                src={slide} 
-                className="rounded-lg shadow-xl"
-                alt={`Slide ${index + 1}`}
-              />
-            ))}
-          </Carousel>
-        </div>
-
-        <div className="flex flex-col items-center gap-4 mt-6">
-          {curr === 2 && (
-            <>
-              <button
-                disabled={clicked}
-                onClick={signInAndCreateTarget}
-                className={`button-animate ${clicked ? 'btn clicked-animate' : ''}`}
-              >
-                <span className="relative z-10">Notify</span>
-              </button>
-            </>
-          )}
-        </div>
-        
-        <div className={`transform transition-all duration-300 ease-in-out ${
-          register ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
-          {register && (
-            <h2 className="text-lg font-semibold text-green-400">
-              Registered for notifications
-            </h2>
-          )}
-        </div>
-      </div>
-    </div>
+      <DarkModeToggle /> {/* Add the toggle to the layout */}
+      <Hero />
+      <Gradient position="left">
+        <About />
+      </Gradient>
+      <Gradient position="left"> {/* Changed from right to left */}
+        <Notification />
+      </Gradient>
+      {/* Pass the notification handler to CTA */}
+      <CTA onNotifyClick={handleNotificationRegistration} /> 
+      <Footer />
+    </>
   );
 }
 
-export default App
+export default App;

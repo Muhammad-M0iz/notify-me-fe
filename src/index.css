@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+:root {
+  --primary-color: #221e68;
+  --secondary-color: #ff6d00;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --background-light: #f8fafc;
+  --background-dark: #1a202c; /* Dark background */
+  --text-primary-dark: #f7fafc; /* Light text for dark mode */
+  --text-secondary-dark: #a0aec0; /* Lighter secondary text for dark mode */
+  --component-background-dark: #2d3748; /* Dark component background */
+  --border-color-dark: #4a5569; /* Border color for dark mode */
+
+  --spacing-unit: 1rem;
+}
+
+body {
+  background-color: var(--background-light);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  --primary-color: #5a67d8; /* Adjusted primary for dark */
+  --secondary-color: #f6ad55; /* Adjusted secondary for dark */
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --background-light: var(--background-dark);
+  --component-background: var(--component-background-dark);
+  --border-color: var(--border-color-dark);
+
+  background-color: var(--background-dark);
+  color: var(--text-primary-dark);
+}
+
+/* Apply component background for dark mode to specific sections if needed */
+body.dark-mode .hero-section,
+body.dark-mode .about-section,
+body.dark-mode .notification-ui,
+body.dark-mode .cta-container,
+body.dark-mode .footer-content {
+  background-color: var(--component-background, var(--background-dark)); /* Fallback to main dark bg */
+  border-color: var(--border-color, transparent); /* Add border if design requires */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0; /* Start hidden, will be animated in by JS */
+}
+
+.animate-on-scroll.is-visible {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Prevents bottom space under images */
+}

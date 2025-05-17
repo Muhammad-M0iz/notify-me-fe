@@ -1,0 +1,142 @@
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  color: var(--text-primary); /* Use CSS variable */
+  padding: clamp(1rem, 3vw, 2rem);
+  max-width: min(1200px, 90vw);
+  margin: 0 auto;
+  background-color: var(--background-light); /* Added */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added */
+}
+
+body.dark-mode .about-section {
+  background-color: var(--component-background-dark); /* Dark mode style */
+  color: var(--text-primary-dark);
+}
+
+.features-text h2 {
+  color: var(--primary-color); /* Use CSS variable */
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+  line-height: 1.2;
+}
+
+.features-text p {
+  color: var(--text-secondary); /* Use CSS variable */
+  font-size: clamp(0.9rem, 1.25vw, 1.1rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.5;
+}
+
+.features-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-text li {
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+  display: flex;
+  align-items: flex-start;
+}
+
+.features-text .dot {
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  margin-right: clamp(0.5rem, 1vw, 0.75rem);
+  color: var(--secondary-color); /* Use CSS variable */
+  flex-shrink: 0;
+  margin-top: 0.15em; /* Better alignment with text */
+}
+
+.features-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Optional: add some rounding to the image */
+}
+
+/* ========== Responsive Adjustments ========== */
+
+/* Tablet and above - two columns */
+@media (min-width: 768px) {
+  .about-section {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+  }
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 767px) {
+  .about-section {
+    grid-template-columns: 1fr; /* Stack columns */
+    gap: 2rem; /* Adjust gap for stacked layout */
+    padding: clamp(1rem, 5vw, 1.5rem); /* Responsive padding */
+  }
+
+  .features-text h2 {
+    font-size: clamp(1.3rem, 6vw, 2rem); /* Responsive font size */
+    text-align: center; /* Center heading on mobile */
+  }
+
+  .features-text p {
+    font-size: clamp(0.85rem, 4vw, 1rem); /* Responsive font size */
+    text-align: center; /* Center paragraph on mobile */
+    margin-bottom: clamp(0.8rem, 3vw, 1.2rem);
+  }
+
+  .features-text ul {
+    padding-left: 0; /* Remove default padding if any */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center list items */
+  }
+
+  .features-text li {
+    margin-bottom: clamp(0.6rem, 2.5vw, 0.8rem);
+    text-align: left; /* Keep text in li left-aligned for readability */
+    max-width: 90%; /* Prevent list items from becoming too wide */
+  }
+
+  .features-image {
+    order: -1; /* Show image on top on mobile */
+    margin-bottom: 1.5rem; /* Add space below image */
+    max-width: 320px; /* Limit image width on mobile */
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Large desktop adjustments */
+@media (min-width: 1400px) {
+  .features-text h2 {
+    font-size: 2.75rem;
+  }
+  .features-text p {
+    font-size: 1.15rem;
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .features-text h2 {
+    font-size: clamp(1.2rem, 5.5vw, 1.8rem);
+  }
+
+  .features-text p {
+    font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+  }
+
+  .features-text li {
+    align-items: flex-start; /* Align items to start for potentially multi-line items */
+    max-width: 100%;
+  }
+
+  .features-text .dot {
+    margin-top: 0.2em; /* Adjust dot alignment if needed */
+  }
+
+  .features-image {
+    max-width: 280px; /* Further limit image width */
+  }
+}
